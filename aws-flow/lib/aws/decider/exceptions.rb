@@ -47,9 +47,12 @@ module AWS
                      details = "But this indicates that it got corrupted getting out")
         super(reason)
         @reason = reason
-        @details = details
-        details = details.message if details.is_a? Exception
-        self.set_backtrace(details)
+        if details.is_a? Exception
+          @details = details.message 
+          set_backtrace(details.backtrace)
+        else
+          @details = details
+        end
       end
     end
 
