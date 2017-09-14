@@ -157,9 +157,8 @@ module AWS
         begin
           context = ActivityExecutionContext.new(@service, @domain, task)
           unless activity_implementation = @activity_definition_map[activity_type]
-            raise "This activity worker was told to work on activity type "\
-              "#{activity_type.inspect}, but this activity worker only knows "\
-              "how to work on #{@activity_definition_map.keys.map(&:name).join' '}"
+            raise "This activity worker does not know how to work on activity type "\
+              "#{activity_type.inspect}"
           end
 
           output, original_result, too_large = activity_implementation.execute(task.input, context)
