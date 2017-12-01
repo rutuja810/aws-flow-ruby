@@ -14,6 +14,7 @@
 #++
 
 require 'tmpdir'
+require 'bugsnag'
 
 module AWS
   module Flow
@@ -121,12 +122,17 @@ module AWS
       # fit them into responses to the SWF service.
       # @api private
       def self.check_and_truncate_exception error, converter
+        # Notify bugsnag about the error
+        Bugsnag.notify(error) do |report|
+          report.severity = 'info'
+        end
 
         # serialize the exception so that we can check the actual size of the
         # payload.
         converted_failure = converter.dump(error)
         # get the reason/message of the exception
-        reason = error.message
+        # If message is nil, replace it with an empty string so we won't fail.
+        reason = error.message || ''
 
         # truncate the reason if needed and add a smaller version of the
         # truncation string at the end
@@ -187,6 +193,16 @@ module AWS
         # whether this is a flow exception or a regular ruby exception
         [reason, converted_failure]
 
+      rescue => e
+        # Notify bugsnag about the error
+        Bugsnag.notify(e) do |report|
+          report.severity = 'info'
+        end
+
+        [
+          'Unknown issue in AWS::Flow::Utilities.check_and_truncate_exception',
+          converter.dump(e)
+        ]
       end
 
 
