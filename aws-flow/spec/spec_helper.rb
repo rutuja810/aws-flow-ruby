@@ -149,6 +149,8 @@ module Test
       def start_workflow_execution(options)
         FakeWorkflowExecution.new(nil, options[:workflow_id])
       end
+      def list_workflow_types(options)
+      end
       def register_activity_type(options)
       end
       def register_workflow_type(options)

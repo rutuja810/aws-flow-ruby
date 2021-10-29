@@ -2,6 +2,10 @@ source "http://www.rubygems.org"
 
 gemspec
 
+gem 'aws-sdk-v1',
+    git: 'git@github.com:acquia/aws-sdk-ruby.git',
+    branch: 'version-1-forward-compatibility'
+
 group :test do
   gem "rspec", "2.14"
   gem "rake"
