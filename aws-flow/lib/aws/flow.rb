@@ -18,12 +18,12 @@
 require 'aws/flow/fiber'
 
 # Require everything else
-require 'aws/flow/async_backtrace.rb'
-require 'aws/flow/async_scope.rb'
-require 'aws/flow/begin_rescue_ensure.rb'
-require 'aws/flow/flow_utils.rb'
-require 'aws/flow/future.rb'
-require 'aws/flow/implementation.rb'
-require 'aws/flow/simple_dfa.rb'
-require 'aws/flow/tasks.rb'
+require 'aws/flow/async_backtrace'
+require 'aws/flow/async_scope'
+require 'aws/flow/begin_rescue_ensure'
+require 'aws/flow/flow_utils'
+require 'aws/flow/future'
+require 'aws/flow/implementation'
+require 'aws/flow/simple_dfa'
+require 'aws/flow/tasks'
 $RUBY_FLOW_FILES = ["async_backtrace.rb","tasks.rb","simple_dfa.rb","implementation.rb","future.rb","flow_utils.rb","begin_rescue_ensure.rb","async_scope.rb"]
