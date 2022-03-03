@@ -26,7 +26,7 @@ module AWS
       #
       def dump(object)
         if object.is_a? Exception
-          return YAML.dump_stream(object, object.backtrace)
+          return YAML.dump(object)
         end
         object.to_yaml
       end
@@ -38,16 +38,7 @@ module AWS
       #
       def load(source)
         return nil if source.nil?
-        output = YAML.load source
-        if output.is_a? Exception
-          documents = YAML.load_stream(source)
-          if YAML.const_defined?(:ENGINE) && YAML::ENGINE.yamler == 'syck'
-            documents = documents.documents
-          end
-          backtrace = documents.find {|x| ! x.is_a? Exception}
-          output.set_backtrace(backtrace.to_a)
-        end
-        output
+        YAML.load source
       end
     end
 
